@@ -1,0 +1,75 @@
+//color
+$blue: #469bf1;
+
+//placeholder
+@mixin placeholderColor($color) {
+    &:placeholder-shown {
+        color: $color;
+    }
+    &::-webkit-input-placeholder {
+        color:$color;
+    }
+    &:-moz-placeholder {
+        color:$color;
+        opacity: 1;
+    }
+    &::-moz-placeholder {
+        color:$color;
+        opacity: 1;
+    }
+    &:-ms-input-placeholder {
+        color:$color;
+    }
+}
+
+//font-size
+@mixin font-size($size: 24, $base: 10) {
+  font-size: $size + px;
+  font-size: ($size / $base) * 1rem;
+}
+
+@mixin transition{
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -o-transition: 0.5s;
+  -ms-transition: 0.5s;
+  transition: 0.5s;
+}
+
+@mixin clearfix {
+  &:after {
+    content: “”;
+    display: none;
+    clear: both;
+  }
+}
+
+//responsive
+$width-pc: 1250px;
+$width-tablet: 868px;
+$width-smartphone: 468px;
+$width-scrollbar: 20px;
+
+@mixin small{
+	@media only screen and (max-width: $width-smartphone +  $width-scrollbar - 1){
+		@content;
+	}
+}
+
+@mixin mid{
+	@media only screen and (min-width: $width-smartphone +  $width-scrollbar) and (max-width: $width-tablet +  $width-scrollbar - 1){
+		@content;
+	}
+}
+
+@mixin small-and-mid{
+	@media only screen and (max-width: $width-tablet +  $width-scrollbar - 1){
+		@content;
+	}
+}
+
+@mixin large{
+	@media only screen and (min-width: $width-pc +  $width-scrollbar){
+		@content;
+	}
+}

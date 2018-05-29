@@ -1,0 +1,88 @@
+{
+  "rules": {
+    ".read": true,
+    "users": {
+      "$uid": {
+        ".write": "auth !== null && auth.uid === $uid",
+        "name": {
+          ".validate": "newData.isString() && 2 <= newData.val().length && newData.val().length <= 100"
+        }
+      }
+    },
+    "themes": {
+      "$uid": {
+        ".write": "auth !== null && auth.uid === $uid",
+        "$tid": {
+          "title": {
+            ".validate": "newData.isString() && newData.val().length <= 200"
+          },
+          "created": {
+            ".validate": "newData.isNumber()"
+          },
+          "modified": {
+            ".validate": "newData.isNumber()"
+          }
+        },
+        ".indexOn": ["created"]
+      }
+    },
+    "publicThemes": {
+      "$tid": {
+        ".write": "root.child('themes/' + auth.uid ).hasChild($tid)",
+        "title": {
+          ".validate": "newData.isString() && newData.val().length <= 200"
+        },
+        "created": {
+          ".validate": "newData.isNumber()"
+        },
+        "modified": {
+          ".validate": "newData.isNumber()"
+        },
+        "author": {
+          "uid": {
+            ".validate": "newData.val() == auth.uid"
+          },
+          "name": {
+            ".validate": "newData.isString() && 2 <= newData.val().length && newData.val().length <= 100"
+          }
+        }
+      },
+      ".indexOn": ["created"]
+    },
+		"ideas": {
+      "$tid": {
+        ".write": true,
+				"$iid": {
+	        "body": {
+	          ".validate": "newData.isString() && newData.val().length <= 200"
+	        },
+          "iamge0": {
+           ".validate": "newData.isString() && newData.val().length <= 200"
+          },
+          "iamge1": {
+           ".validate": "newData.isString() && newData.val().length <= 200"
+          },
+          "iamge2": {
+           ".validate": "newData.isString() && newData.val().length <= 200"
+          },
+          "iamge3": {
+           ".validate": "newData.isString() && newData.val().length <= 200"
+          },
+          "iamge4": {
+           ".validate": "newData.isString() && newData.val().length <= 200"
+          },
+          "iamge5": {
+           ".validate": "newData.isString() && newData.val().length <= 200"
+          },
+	        "created": {
+	          ".validate": "newData.isNumber()"
+	        },
+	        "modified": {
+	          ".validate": "newData.isNumber()"
+	        }
+				}
+      },
+      ".indexOn": ["created"]
+    }
+  }
+}
